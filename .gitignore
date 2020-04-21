@@ -106,3 +106,7 @@ dist
 # Reports
 reports/*
 !reports/README.md
+
+# Ignore files
+metaexploit/*
+!metaexploit/install.sh
