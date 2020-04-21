@@ -109,4 +109,4 @@ reports/*
 
 # Ignore files
 metaexploit/*
-!metaexploit/install.sh
+!metaexploit/install.shl
