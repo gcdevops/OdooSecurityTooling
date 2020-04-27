@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:11
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=clair
+      - POSTGRES_USER=clair
+    volumes:
+      - clair-db-data:/var/lib/postgresql/
+  clair:
+    image: quay.io/coreos/clair:latest
+    volumes:
+      - ./clair_config/config.yaml:/etc/clair/config.yaml
+    ports:
+      - 6060:6060
+      - 6061:6061
+    depends_on:
+      - db
+volumes:
+    clair-db-data:
