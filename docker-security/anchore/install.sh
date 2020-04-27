@@ -16,3 +16,7 @@ docker-compose pull
 docker-compose up -d
 
 cd ..
+
+# Install inline scan script
+curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 > inline_scan.sh
+chmod +x inline_scan.sh

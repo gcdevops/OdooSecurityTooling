@@ -5,10 +5,11 @@ services:
     depends_on:
       - uwsgi
     ports:
-      - target: ${DD_PORT:-8080}
-        published: ${DD_PORT:-8080}
-        protocol: tcp
-        mode: host
+      - 443:8083
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs/fullchain.pem:/etc/nginx/fullchain.pem
+      - ./certs/privkey.pem:/etc/nginx/privkey.pem
   uwsgi:
     image: defectdojo/defectdojo-django:1.5.4.1
     depends_on:
