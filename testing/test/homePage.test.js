@@ -15,15 +15,11 @@ process.on('unhandledRejection', () => {});
           this.timeout(50000);
           let driver, page;
 
-          beforeEach(async () => {
+          before(async () => {
               page = new Page();
               driver = page.driver;
               await page.visit('localhost:8069/web/login');
           });
-
-        //   afterEach(async () => {
-        //       await page.quit();
-        //   });
 
           it('find the input box and log in button', async () => {
               const result = await page.findInputAndButton();
