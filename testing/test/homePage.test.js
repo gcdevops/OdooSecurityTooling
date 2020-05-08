@@ -18,7 +18,11 @@ process.on('unhandledRejection', () => {});
           before(async () => {
               page = new Page();
               driver = page.driver;
-              await page.visit('localhost:8069/web/login');
+              await page.visit('/web/login');
+          });
+
+          afterEach(async () => {
+              await page.quit();
           });
 
           it('find the input box and log in button', async () => {
