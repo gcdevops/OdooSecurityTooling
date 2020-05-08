@@ -4,7 +4,8 @@
   "description": "Autonmation test with Selenium",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test --reporter mochawesome --reporter-options autoOpen=true"
+    "test": "mocha test --reporter mochawesome --reporter-options autoOpen=true",
+    "security-test": "export SECURITY_MODE=true && mocha test --reporter mochawesome --reporter-options autoOpen=true"
   },
   "keywords": [
     "node.js",
