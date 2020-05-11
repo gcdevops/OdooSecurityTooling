@@ -9,10 +9,8 @@ services:
         command:  zap-webswing.sh
         networks:
             - odoodocker_default
+        volumes:
+            - ./data/:/zap-data/
 networks:
     odoodocker_default:
         external: true
-
-
-
-
