@@ -9,6 +9,7 @@ let o = new chrome.Options();
 o.addArguments('disable-infobars');
 o.setUserPreferences({ credential_enable_service: false });
 
+
 var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).setChromeOptions(o).build();
 
 var Page = function() {
@@ -36,13 +37,13 @@ var Page = function() {
 
     // wait and find a specific element with it's className
     this.findByClassName = async function(c) {
-        driver.wait(webdriver.until.elementLocated(webdriver.By.className(c)), 10000)
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.className(c)), 5000)
         return await driver.findElement(webdriver.By.className(c));
     };
 
      // wait and find a specific element with it's css selector
     this.findByCss = async function(item) {
-        driver.wait(webdriver.until.elementLocated(webdriver.By.css(item)), 10000)
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.css(item)), 5000)
         return await driver.findElement(webdriver.By.css(item));
     }
 

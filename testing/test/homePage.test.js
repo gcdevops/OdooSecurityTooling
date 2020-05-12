@@ -29,7 +29,7 @@ process.on('unhandledRejection', () => {});
                await page.submitBtnAndLogIn();
           });
 
-          it('find the nav bar', async () => {
+          it('navigate to the employee page', async () => {
                 await page.navigateEmployeePage();
           });
 
