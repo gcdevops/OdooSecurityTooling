@@ -3,40 +3,32 @@ const locator = require('../utils/locator');
 const credentials = require('../utils/credentials');
 const webdriver = require("selenium-webdriver");
 
-const usernameInputSelector = locator.usernameInputId;
-const passwordInputSelector = locator.passwordInput;
-const submitSelectorBtn = locator.submitBtn;
-const searchSelector = locator.search;
-const navSelector = locator.navigation
-const employeePageSelector = locator.employeesBtn;
-
 let submitBtn, navMenu, employeesBtn, searchField, selectEmployee, editBtn, emailField, saveBtn;
 
 Page.prototype.findInputAndButton = async function () {
-    await this.findById(usernameInputSelector);
-    await this.findById(passwordInputSelector);
-    submitBtn = await this.findByClassName(submitSelectorBtn);
+    await this.findById(locator.usernameInputId);
+    await this.findById(locator.passwordInput);
+    submitBtn = await this.findByClassName(locator.submitBtn);
 };
 
 Page.prototype.submitBtnAndLogIn = async function(){
     await this.findInputAndButton();
-    await this.write(usernameInputSelector, credentials.username);
-    await this.write(passwordInputSelector, credentials.password);
+    await this.write(locator.usernameInputId, credentials.username);
+    await this.write(locator.passwordInput, credentials.password);
     return await submitBtn.click();
 }
 
-Page.prototype.navigateEmployeePage = async function () {
-    // navMenu = await driver.wait(webdriver.until.elementLocated(webdriver.By.css(navSelector), 5000));
-    navMenu = await this.findByCss(navSelector);
-    employeesBtn = await this.findByCss(employeePageSelector);
+Page.prototype.navigateEmployeePage = async function () {;
+    navMenu = await this.findByCss(locator.navigation);
+    employeesBtn = await this.findByCss(locator.employeesBtn);
     await navMenu.click();
     await employeesBtn.click();
 };
 
 Page.prototype.selectEmployee = async function(){
     await this.navigateEmployeePage();
-    searchField = await this.findByCss(searchSelector);
-    await driver.findElement(webdriver.By.css(searchSelector)).sendKeys('Smith, Brad\n');
+    searchField = await this.findByCss(locator.search);
+    await driver.findElement(webdriver.By.css(locator.search)).sendKeys('Smith, Brad\n');
     selectEmployee = await this.findByCss(locator.selectEmployee);
     await selectEmployee.click();
 }
