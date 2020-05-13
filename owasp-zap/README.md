@@ -2,6 +2,18 @@
 
 ## Instructions
 
+**Depending on how you wish to use ZAP.**
+
+1. If your site has CSRF protection (CSRF Tokens), you need to natively install it.
+2. If your site does not have CSRF, then use the docker compose route.
+
+### Native Install
+
+1. Run ```./install.sh```.
+2. Follow the prompts.
+
+### Docker Compose
+
 1. ```docker-compose up -d```
 2. Visit http://localhost:8888/zap
 3. When prompted, choose to persist session.

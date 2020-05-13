@@ -1,6 +1,7 @@
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
-const path = require('chromedriver').path
+const path = require('chromedriver').path;
+const proxy = require('selenium-webdriver/proxy');
 
 var service = new chrome.ServiceBuilder(path).build();
 chrome.setDefaultService(service);
@@ -13,11 +14,27 @@ o.setUserPreferences({ credential_enable_service: false });
 var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).setChromeOptions(o).build();
 
 var Page = function() {
-    global.driver = driver;
+
+    if (process.env.SECURITY_MODE === 'true') {
+        this.driver = new webdriver.Builder()
+        .withCapabilities(webdriver.Capabilities.chrome())
+        .setProxy(proxy.manual({http: 'localhost:8888'},{https: 'localhost:8888'}))
+        .build();
+    } else {
+        this.driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
+    }
+
+    this.baseUrl = function() {
+        if (process.env.SECURITY_MODE === 'true') {
+            return "http://odoo:8069";
+        } else {
+            return "http://localhost:8069";
+        }
+    }
 
     // visit a webpage
     this.visit = async function(theUrl) {
-        return await driver.get(theUrl);
+        return await this.driver.get(this.baseUrl() + theUrl);
     };
 
     // quit current session
