@@ -7,42 +7,44 @@ chrome.setDefaultService(service);
 
 let o = new chrome.Options();
 o.addArguments('disable-infobars');
-o.setUserPreferences({ credential_enable_service: false });
+o.setUserPreferences({
+    credential_enable_service: false
+});
 
 
 var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).setChromeOptions(o).build();
 
-var Page = function() {
+var Page = function () {
     global.driver = driver;
 
     // visit a webpage
-    this.visit = async function(theUrl) {
+    this.visit = async function (theUrl) {
         return await driver.get(theUrl);
     };
 
     // quit current session
-    this.quit = async function() {
+    this.quit = async function () {
         return await driver.quit();
     };
 
     // wait and find a specific element with it's id
-    this.findById = async function(id) {
+    this.findById = async function (id) {
         return await driver.findElement(webdriver.By.id(id));
     };
 
     // wait and find a specific element with it's name
-    this.findByName = async function(name) {
+    this.findByName = async function (name) {
         return await driver.findElement(webdriver.By.name(name));
     };
 
     // wait and find a specific element with it's className
-    this.findByClassName = async function(c) {
+    this.findByClassName = async function (c) {
         await driver.wait(webdriver.until.elementLocated(webdriver.By.className(c)), 5000)
         return await driver.findElement(webdriver.By.className(c));
     };
 
-     // wait and find a specific element with it's css selector
-    this.findByCss = async function(item) {
+    // wait and find a specific element with it's css selector
+    this.findByCss = async function (item) {
         await driver.wait(webdriver.until.elementLocated(webdriver.By.css(item)), 5000)
         return await driver.findElement(webdriver.By.css(item));
     }
