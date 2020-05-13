@@ -4,7 +4,7 @@
   "description": "Autonmation test with Selenium",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test --reporter mochawesome --reporter-options autoOpen=true"
+    "test": "mocha test"
   },
   "keywords": [
     "node.js",
