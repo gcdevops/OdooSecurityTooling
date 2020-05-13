@@ -1,9 +1,10 @@
-/* eslint-disable no-empty */
+/* eslint-disable no-unused-vars */
 
 const {
     describe,
     it,
-    before
+    before,
+    afterEach
 } = require('mocha');
 const Page = require('../lib/loginPage');
 const chai = require('chai');
@@ -15,15 +16,22 @@ chai.use(chaiAsPromised);
 process.on('unhandledRejection', () => {});
 
 (async function example() {
-    let page;
+    let driver, page;
     try {
         describe('Log in Page', async function () {
             this.timeout(50000);
-
+            
 
             before(async () => {
                 page = new Page();
-                await page.visit('localhost:8069/');
+                driver = page.driver;
+
+                await page.visit('/web/login');
+            });
+
+            afterEach(async () => {
+                await page.quit();
+
             });
 
             it('find the input box and log in button', async () => {

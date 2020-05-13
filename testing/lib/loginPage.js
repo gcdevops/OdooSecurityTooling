@@ -2,7 +2,7 @@
 var Page = require('./basePage');
 const locator = require('../utils/locator');
 const credentials = require('../utils/credentials');
-const webdriver = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver'); 
 
 let submitBtn, navMenu, employeesBtn, selectEmployee, editBtn, saveBtn;
 
