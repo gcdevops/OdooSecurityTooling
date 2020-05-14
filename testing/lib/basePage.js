@@ -47,11 +47,13 @@ var Page = function() {
 
     // wait and find a specific element with it's id
     this.findById = async function (id) {
-        return await driver.findElement(webdriver.By.id(id));
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.id(id)), 5000)
+        return await driver.findElement(webdriver.By.id(id)); 
     };
 
     // wait and find a specific element with it's name
     this.findByName = async function (name) {
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.name(name)), 5000)
         return await driver.findElement(webdriver.By.name(name));
     };
 
