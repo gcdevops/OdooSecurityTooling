@@ -8,8 +8,12 @@ chrome.setDefaultService(service);
 
 let o = new chrome.Options();
 o.addArguments('disable-infobars');
-o.setUserPreferences({ credential_enable_service: false });
+o.setUserPreferences({
+    credential_enable_service: false
+});
 
+
+var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).setChromeOptions(o).build();
 
 var Page = function() {
 
@@ -24,39 +28,50 @@ var Page = function() {
 
     this.baseUrl = function() {
         if (process.env.SECURITY_MODE === 'true') {
-            return "http://odoo:8069";
+            return 'http://odoo:8069';
         } else {
-            return "http://localhost:8069";
+            return 'http://localhost:8069';
         }
     }
 
     // visit a webpage
     this.visit = async function(theUrl) {
         return await this.driver.get(this.baseUrl() + theUrl);
+
     };
 
     // quit current session
-    this.quit = async function() {
-        return await this.driver.quit();
+    this.quit = async function () {
+        return await driver.quit();
     };
 
     // wait and find a specific element with it's id
-    this.findById = async function(id) {
-        return await this.driver.findElement(webdriver.By.id(id));
+    this.findById = async function (id) {
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.id(id)), 5000)
+        return await driver.findElement(webdriver.By.id(id)); 
     };
 
     // wait and find a specific element with it's name
-    this.findByName = async function(name) {
-        return await this.driver.findElement(webdriver.By.name(name));
+    this.findByName = async function (name) {
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.name(name)), 5000)
+        return await driver.findElement(webdriver.By.name(name));
     };
 
-    this.findByClassName = async function(c) {
-        return await this.driver.findElement(webdriver.By.className(c));
+    // wait and find a specific element with it's className
+    this.findByClassName = async function (c) {
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.className(c)), 5000)
+        return await driver.findElement(webdriver.By.className(c));
     };
+
+    // wait and find a specific element with it's css selector
+    this.findByCss = async function (item) {
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.css(item)), 5000)
+        return await driver.findElement(webdriver.By.css(item));
+    }
 
     // fill input web elements
     this.write = async function (el, txt) {
-        return await this.driver.findElement(webdriver.By.id(el)).sendKeys(txt);
+        return await driver.findElement(webdriver.By.id(el)).sendKeys(txt);
     };
 };
 
