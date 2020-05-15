@@ -6,7 +6,7 @@ const {
     before,
     afterEach
 } = require('mocha');
-const Page = require('../lib/loginPage');
+const Page = require('../lib/sanityChecks');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
